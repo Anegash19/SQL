@@ -1,0 +1,25 @@
+CREATE TABLE Pizzeria (ID INTEGER PRIMARY KEY,
+                       Name TEXT,
+                       Size TEXT,
+                       Quantity INTEGER,
+                       Price NUMERIC
+                       );
+                       
+INSERT INTO Pizzeria VALUES (1, "Cheese", "Large", 1,10.00 ),
+                            (2, "Margarita", "Large", 1,14.00 ),
+                            (3, "Meat Lovers", "Large", 1,16.00 ),
+                            (4, "Veggie", "Large", 1,12.00 ),
+                            (5, "Hawaiian", "Large", 1,13.00 ),
+                            (6, "Works", "Large", 1,15.00 ),
+                            (7, "Peperoni", "Large", 1,12.00 ),
+                            (8, "Meat", "Large", 1,12.00 ),
+                            (9, "BBQ Chicken", "Large", 1,13.00 ),
+                     (10, "Buffalo Chicken", "Large", 1,13.00 ),
+                            (11, "Supreme", "Large", 1,16.00 ),
+                        (12, "Chef's Special", "Large", 1,17.00 ),
+                            (13, "Beef", "Large", 1,13.00 ),
+                            (14, "Chicken", "Large", 1,13.00 ),
+                            (15, "Fries", "Large", 1,7.00 );
+SELECT * FROM Pizzeria
+ORDER BY Price;
+SELECT MAX(Price) FROM Pizzeria;
