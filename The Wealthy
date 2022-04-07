@@ -1,0 +1,74 @@
+CREATE TABLE Wealthy (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT,
+    Age INTEGER,
+    Location TEXT);
+    
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Elon Musk",50, "Texas");
+INSERT INTO Wealthy (Name,  Age, Location) VALUES ("Jeff Bezos",57, "Washington");
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Bill Gates",66, "Washington");
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Larry Ellison",77, "Hawaii");
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Mark Zucherberg",37, "California");
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Larry Page", 48, "California");
+INSERT INTO Wealthy (Name,  Age, Location) VALUES ("Warren Buffet", 91, "Nebraska");
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Sergery Brin",48, "California");
+INSERT INTO Wealthy (Name,  Age, Location) VALUES ("Steve Ballmer", 65, "Washington");
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Michael Bloomberg",79,"New York");
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Jim Walton", 73, "Arkansas");
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Alice Walton", 72, "Texas");
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Rob Walton", 77,"Arkansas");
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Michael Dell",56, "Texas");
+INSERT INTO Wealthy (Name, Age, Location) VALUES ("Phil Knight",83, "Oregon");
+
+
+
+CREATE table Wealth_Info (
+    Billionaire_id INTEGER,
+    net_worth INTEGER,
+    source TEXT);
+    
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (1, 263, "Tesla, SpaceX");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (2, 195.9 , "Amazon, Blue Origin");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (3, 135.8, "Microsoft Hathaway");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (4, 119.5 , "Oracle");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (5, 117.5, "Meta");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (6, 117.3 , "Alphabet Inc.");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (7, 115.6, "Berkshire Hathaway");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (8, 113.1, "Alphabet Inc.");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (9, 99.9, "Microsoft");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (10, 69, "Bloomberg L.P.");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (11, 67.2, "Walmart");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (12, 66.3, "Walmart");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (13, 66, "Walmart");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (14, 59 , "Dell");
+INSERT INTO Wealth_Info (Billionaire_id, net_worth, source) VALUES (15, 57.9, "Nike");
+
+/*Return total net worth for each billionare*/
+SELECT Wealthy.Name, Wealth_Info.net_worth As Net_worth_in_Billions
+FROM Wealthy
+JOIN Wealth_Info
+ON Wealthy.id = Wealth_Info.Billionaire_id;
+
+/*query that shows only the name of wealthy who are worth more than Warren Buffet'*/
+
+SELECT B.Name, Info.net_worth AS Net_worth_in_Billions FROM Wealthy B
+JOIN Wealth_Info Info
+ON B.id = Info.Billionaire_id
+WHERE Info.net_worth >= 
+    (SELECT w.net_Worth FROM Wealth_Info w
+        JOIN Wealthy b
+        ON b.id = w.Billionaire_id
+        WHERE b.Name = "Warren Buffet")
+        ORDER BY net_worth DESC;
+
+/*HOW MANY MILLIONAIRES RESIDE IN EACH LOCATION?*/ 
+		
+
+			SELECT COUNT (Info.Billionaire_id) Num_of_Billionaires, B.Location FROM Wealth_Info Info
+			JOIN Wealthy B
+			ON Info.Billionaire_id =B.id
+			GROUP BY B.Location
+	        ORDER BY Location;
+		
+	
+
