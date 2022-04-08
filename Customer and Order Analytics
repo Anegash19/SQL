@@ -30,11 +30,14 @@ SELECT product, SUM(quantity) Total_Quantity, SUM(quantity)*price Total_Revenue,
 WHERE location = "548 Lincoln St, Seattle, WA 98101"
 GROUP BY Product;
 
---How many customers ordered more than 2 products at a time in February, 
---and what was the average amount spent for those customers?
+--How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
 
 SELECT COUNT (C.acctnum) NUM_OF_CUSTOMERS, AVG(s.quantity)*price AVG_SPENT FROM customers C
 JOIN FebSales S
 ON C.order_id = S.orderID
 WHERE s.quantity >2;
 
+--List all the products sold in Los Angeles in February, and include how many of each were sold.
+
+SELECT Product FROM FebSales
+WHERE location LIKE '%LOs Angeles%';
