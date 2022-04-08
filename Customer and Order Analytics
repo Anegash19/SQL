@@ -39,5 +39,36 @@ WHERE s.quantity >2;
 
 --List all the products sold in Los Angeles in February, and include how many of each were sold.
 
-SELECT Product FROM FebSales
-WHERE location LIKE '%LOs Angeles%';
+SELECT Product, SUM(quantity) Quantity_Sold FROM FebSales
+WHERE location LIKE '%Los Angeles%'
+GROUP BY product
+
+--How many locations are there in New York that sold more than 1 product in January?
+
+SELECT count(distinct location) Num_Of_Locations FROM JanSales 
+WHERE location like '%NY%' AND quantity > 1
+
+--How many of each type of headphone were sold in February?
+
+SELECT sum(Quantity) as quantity, Product AS Headphones FROM FebSales 
+GROUP BY Product
+HAVING Product like '%Headphones%'
+
+--What was the average amount spent per account in February?
+
+SELECT avg(quantity*price) Avg_Spending FROM FebSales F
+LEFT JOIN customers C
+ON F.orderid=C.order_id
+
+--What was the average quantity of products purchased per account in February?
+
+select sum(quantity)/count(C.acctnum) Avg_Quantity_Purchased FROM FebSales F
+JOIN customers C
+ON F.orderid = C.order_id
+
+--Which product brought in the most revenue in January and how much revenue did it bring in total?
+
+SELECT product, sum(quantity*price) Revenue FROM JanSales 
+GROUP BY product
+ORDER BY Revenue desc 
+LIMIT 1
